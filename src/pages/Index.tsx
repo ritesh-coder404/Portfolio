@@ -1,0 +1,49 @@
+import { useState } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
+import Navbar from "@/components/Navbar";
+import Scene3D from "@/components/Scene3D";
+import Preloader from "@/components/Preloader";
+import MusicToggle from "@/components/MusicToggle";
+import HeroSection from "@/components/HeroSection";
+import AboutSection from "@/components/AboutSection";
+import SkillsSection from "@/components/SkillsSection";
+import ProjectsSection from "@/components/ProjectsSection";
+import EducationSection from "@/components/EducationSection";
+import ContactSection from "@/components/ContactSection";
+import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
+
+const Index = () => {
+  const [entered, setEntered] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
+
+  return (
+    <div className="relative min-h-screen">
+      <Scene3D />
+      <Preloader onOpen={() => setEntered(true)} />
+      {entered && (
+        <>
+          <motion.div
+            style={{ scaleX: progress }}
+            className="fixed top-0 left-0 right-0 h-1 origin-left bg-primary z-[60]"
+          />
+          <div className="relative z-10">
+            <Navbar />
+            <HeroSection />
+            <AboutSection />
+            <SkillsSection />
+            <ProjectsSection />
+            <EducationSection />
+            <ContactSection />
+            <Footer />
+            <ScrollToTop />
+          </div>
+          <MusicToggle />
+        </>
+      )}
+    </div>
+  );
+};
+
+export default Index;
