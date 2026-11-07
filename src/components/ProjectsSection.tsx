@@ -1,30 +1,22 @@
 import { useRef, type ReactNode, type MouseEvent } from "react";
 import { motion } from "framer-motion";
-import { CalendarCheck, BookOpen, Github } from "lucide-react";
+import { CalendarCheck, BookOpen, Github, ExternalLink } from "lucide-react";
 
 const projects = [
   {
-    title: "SlotEase",
-    subtitle: "Online Appointment Booking System",
+    title: "PORTFOLIO",
+    // yaha apna live site link aur repo link paste karo (khali chhodoge to button hide rahega)
+    live: "https://portfolio-blush-three-18.vercel.app/",
+    github: "https://github.com/ritesh-coder404",
     icon: CalendarCheck,
     tags: ["React", "Node.js", "Express.js", "Supabase"],
-    points: [
-      "Full stack appointment booking platform for clinics, salons and small businesses in India.",
-      "Designed the PostgreSQL schema (profiles, services, slots, bookings) in Supabase with Supabase Auth.",
-      "REST APIs with Express.js and email booking confirmations using Nodemailer.",
-      "React (Vite) frontend with react-router-dom and axios; frontend on Vercel, backend on Render.",
-    ],
   },
   {
     title: "BookStore",
-    subtitle: "E-Commerce Web Application",
+    live: "",
+    github: "https://github.com/ritesh-coder404",
     icon: BookOpen,
     tags: ["React", "Vite", "Tailwind CSS", "Supabase"],
-    points: [
-      "Online bookstore with separate customer and admin modules.",
-      "Authentication, PostgreSQL database, Row Level Security policies and file storage using Supabase.",
-      "Responsive Tailwind CSS UI with a demo payment flow.",
-    ],
   },
 ];
 
@@ -84,13 +76,7 @@ const ProjectsSection = () => {
                     <project.icon className="w-12 h-12 text-primary" />
                   </div>
                   <div className="p-6">
-                    <h3 className="font-display text-xl font-semibold text-foreground">{project.title}</h3>
-                    <p className="text-sm text-primary mb-4">{project.subtitle}</p>
-                    <ul className="list-disc pl-5 space-y-1.5 text-muted-foreground text-sm leading-relaxed mb-5">
-                      {project.points.map((p) => (
-                        <li key={p}>{p}</li>
-                      ))}
-                    </ul>
+                    <h3 className="font-display text-xl font-semibold text-foreground mb-4">{project.title}</h3>
                     <div className="flex flex-wrap gap-2 mb-5">
                       {project.tags.map((tag) => (
                         <span
@@ -101,14 +87,28 @@ const ProjectsSection = () => {
                         </span>
                       ))}
                     </div>
-                    <a
-                      href="https://github.com/ritesh-coder404"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
-                    >
-                      <Github className="w-4 h-4" /> GitHub profile
-                    </a>
+                    <div className="flex flex-wrap gap-3">
+                      {project.live && (
+                        <a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-display hover:-translate-y-0.5 hover:border-glow transition-all"
+                        >
+                          <ExternalLink className="w-4 h-4" /> Live Demo
+                        </a>
+                      )}
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-primary/30 text-primary text-sm font-display hover:bg-primary/10 hover:-translate-y-0.5 transition-all"
+                        >
+                          <Github className="w-4 h-4" /> Code
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </TiltCard>
