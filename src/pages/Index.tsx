@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Scene3D from "@/components/Scene3D";
@@ -12,15 +12,31 @@ import EducationSection from "@/components/EducationSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import CursorGlow from "@/components/CursorGlow";
+import TechMarquee from "@/components/TechMarquee";
 
 const Index = () => {
   const [entered, setEntered] = useState(false);
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
 
+  // visitor dusre tab pe jaye to title change ho jata hai, wapas aate hi normal
+  useEffect(() => {
+    const original = document.title;
+    const onVisibility = () => {
+      document.title = document.hidden ? "Come back! 👋 | Ritesh Thakur" : original;
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibility);
+      document.title = original;
+    };
+  }, []);
+
   return (
     <div className="relative min-h-screen">
       <Scene3D />
+      <CursorGlow />
       <Preloader onOpen={() => setEntered(true)} />
       {entered && (
         <>
@@ -31,6 +47,7 @@ const Index = () => {
           <div className="relative z-10">
             <Navbar />
             <HeroSection />
+            <TechMarquee />
             <AboutSection />
             <SkillsSection />
             <ProjectsSection />
